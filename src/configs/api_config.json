@@ -1,0 +1,4 @@
+{
+  "baseHttpsUrl": "https://localhost:7186/api/",
+  "baseHttpUrl": "http://localhost:5291/api/"
+}
