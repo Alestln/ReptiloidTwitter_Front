@@ -3,7 +3,12 @@
     <img class="link" src="assets/icons/ReptiloidIcon.png" alt="Tape">
     <span class="link">ReptilTwit</span>
   </div>
-  <div class="usernameBlock link" routerLink="user-profile/details/1">
-    <span>alestln</span>
+  <div *ngIf="username" class="usernameBlock link" routerLink="user-profile/details/1">
+    <span>{{username}}</span>
   </div>
+  <ng-template [ngIf]="!username">
+    <div class="usernameBlock link">
+      <span>Login</span>
+    </div>
+  </ng-template>
 </header>
