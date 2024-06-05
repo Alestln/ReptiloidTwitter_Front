@@ -1,10 +1,32 @@
 img{
-  height: 4%;
-  width: 4%;
+  height: 7%;
+  width: 7%;
 }
 
 header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: #e5e5e554;
   padding: 7px;
   border-bottom: 1px solid #e0e0e0;
+}
+
+.tapeBtn {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.usernameBlock{
+  font-weight: bold;
+  border: 2px solid #3ca040ba;
+  border-radius: 8px;
+  padding: 5px 10px;
+  background-color: #eff7f1;
+  cursor: pointer;
+}
+
+.link{
+  cursor: pointer;
 }
