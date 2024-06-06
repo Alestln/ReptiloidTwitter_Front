@@ -24,7 +24,6 @@ export class UserProfileComponent implements OnInit{
       this.userProfileService.getUserProfileInfo(id).subscribe({
         next: (data) => {
           this.info = data;
-          console.log(data);
         },
         error: (error) => {
           this.errorMessage = error;

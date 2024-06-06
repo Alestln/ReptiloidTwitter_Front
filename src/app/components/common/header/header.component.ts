@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {UserService} from "../../../services/common/user.service";
 
 @Component({
   selector: 'app-header',
@@ -11,8 +10,8 @@ export class HeaderComponent {
   public username: string | null;
 
   // TODO: Remove saving username from constructor
-  constructor(private userService: UserService) {
+  constructor() {
     //this.userService.saveUsername('Alestln');
-    this.username = this.userService.getUsername();
+    this.username = 'Alestln';
   }
 }
