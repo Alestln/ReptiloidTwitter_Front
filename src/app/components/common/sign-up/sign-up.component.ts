@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {RegisterAccount} from "../../../types/domain/account/RegisterAccount";
-import {AccountService} from "../../../services/api/account.service";
+import {AuthenticationService} from "../../../services/common/authentication.service";
 
 @Component({
   selector: 'app-sign-up',
@@ -12,7 +12,7 @@ export class SignUpComponent implements OnInit{
   private _entity: RegisterAccount | null;
   form: FormGroup | null;
 
-  constructor(private accountService: AccountService) {
+  constructor(private authenticationService: AuthenticationService) {
     this._entity = null;
     this.form = null;
   }
@@ -21,7 +21,7 @@ export class SignUpComponent implements OnInit{
     if (this.form && this.form.valid) {
       this._entity = this.form.value;
       if (this._entity !== null) {
-        this.accountService.create(this._entity).subscribe({
+        this.authenticationService.register(this._entity).subscribe({
           next: (response) => {
             console.log('Account created successfully:', response);
           },
