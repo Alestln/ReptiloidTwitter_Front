@@ -19,16 +19,23 @@ export class UserProfileComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    const id: string = this.route.snapshot.queryParams['id'];
-    this.userProfileService.getUserProfileInfo(id).subscribe({
-      next: (data) => {
-        this.info = data;
-        console.log(data);
-      },
-      error: (error) => {
-        this.errorMessage = error;
-        console.error(error);
-      }
-    });
+    const id : string | null = this.route.snapshot.paramMap.get('id');
+    if (id){
+      this.userProfileService.getUserProfileInfo(id).subscribe({
+        next: (data) => {
+          this.info = data;
+          console.log(data);
+        },
+        error: (error) => {
+          this.errorMessage = error;
+          console.error(error);
+        }
+      });
+    }
+    else {
+      this.errorMessage = "User not found";
+    }
   }
+
+  protected readonly btoa = btoa;
 }

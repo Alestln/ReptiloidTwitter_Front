@@ -1,14 +1,24 @@
-<header>
-  <div class="tapeBtn">
-    <img class="link" src="assets/icons/ReptiloidIcon.png" alt="Tape">
-    <span class="link">ReptilTwit</span>
+<header class="tw-flex tw-justify-between tw-items-center tw-bg-green-100 tw-p-2 tw-border-b-1">
+  <div class="tw-flex tw-items-center tw-font-bold tw-ml-5">
+    <img class="tw-cursor-pointer tw-h-11 tw-w-11" src="assets/icons/ReptiloidIcon.png" alt="Tape">
+    <span class="tw-cursor-pointer">ReptilTwit</span>
   </div>
-  <div *ngIf="username" class="usernameBlock link" routerLink="user-profile/details/40779046-8eed-46a6-8515-0b0871777165">
-    <span>{{username}}</span>
-  </div>
-  <ng-template [ngIf]="!username">
-    <div class="usernameBlock link">
-      <span>Login</span>
+  <div class="tw-mr-5">
+    <div *ngIf="username"
+    class="tw-flex">
+      <div
+           class="tw-font-bold tw-border tw-border-green-700 tw-rounded-2xl tw-p-1.5 tw-cursor-pointer tw-mr-4"
+           routerLink="user-profile/details/40779046-8eed-46a6-8515-0b0871777165">
+        <span>{{username}}</span>
+      </div>
+      <div class="tw-font-bold tw-border tw-border-green-700 tw-rounded-2xl tw-p-1.5 tw-cursor-pointer">
+        <span>Logout</span>
+      </div>
     </div>
-  </ng-template>
+    <ng-template [ngIf]="!username">
+      <div class="tw-font-bold tw-border tw-border-green-700 tw-rounded-2xl tw-p-1.5 tw-cursor-pointer">
+        <span>Login</span>
+      </div>
+    </ng-template>
+  </div>
 </header>

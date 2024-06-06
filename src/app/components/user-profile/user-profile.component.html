@@ -1,1 +1,34 @@
-<p>user-profile works!</p>
+<div class="tw-bg-white tw-border-green-700 tw-border-solid tw-border-4 tw-rounded-lg tw-p-4 tw-pb-6">
+  <div
+    *ngIf="info"
+    class="tw-flex tw-place-items-center tw-justify-evenly">
+    <div
+      class="tw-w-72 tw-h-72 tw-rounded-full tw-bg-cover tw-bg-center tw-mr-6"
+      [ngStyle]="{'background-image': 'url(data:image;base64,' + info.photoFile + ')'}"
+    ></div>
+    <div class="tw-inline-flex-1">
+      <div *ngIf="(info.firstName && info.lastName) || info.middleName" class="tw-mb-4">
+        <div class="tw-flex tw-flex-wrap">
+          <ng-container *ngIf="info.firstName && info.lastName">
+            <span class="tw-inline-block tw-bg-gray-200 tw-rounded-md tw-px-2 tw-py-1 tw-mr-2"><strong>Ім'я:</strong> {{ info.firstName }}</span>
+            <span class="tw-inline-block tw-bg-gray-200 tw-rounded-md tw-px-2 tw-py-1 tw-mr-2"><strong>Фамілія:</strong> {{ info.lastName }}</span>
+          </ng-container>
+        </div>
+        <div class="tw-flex tw-my-2">
+          <ng-container *ngIf="info.middleName">
+            <span class="tw-inline-block tw-bg-gray-200 tw-rounded-md tw-px-2 tw-py-1"><strong>По-батькові:</strong> {{ info.middleName }}</span>
+          </ng-container>
+        </div>
+      </div>
+
+      <div *ngIf="info.birthdayDate" class="tw-mb-4">
+        <strong class="tw-block tw-text-lg tw-font-semibold tw-mb-1">Дата народження:</strong>
+        <span class="tw-inline-block tw-bg-gray-200 tw-rounded-md tw-px-2 tw-py-1">{{ info.birthdayDate }}</span>
+      </div>
+      <div *ngIf="info.bio">
+        <strong class="tw-block tw-text-lg tw-font-semibold tw-mb-1">Про себе:</strong>
+        <p class="tw-bg-gray-200 tw-rounded-md tw-p-4">{{ info.bio }}</p>
+      </div>
+    </div>
+  </div>
+</div>
