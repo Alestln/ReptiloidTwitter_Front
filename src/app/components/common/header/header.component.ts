@@ -12,6 +12,6 @@ export class HeaderComponent {
   // TODO: Remove saving username from constructor
   constructor() {
     //this.userService.saveUsername('Alestln');
-    this.username = 'Alestln';
+    this.username = null;
   }
 }

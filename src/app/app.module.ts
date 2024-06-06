@@ -7,18 +7,24 @@ import { HeaderComponent } from './components/common/header/header.component';
 import {NgOptimizedImage} from "@angular/common";
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import {HttpClientModule} from "@angular/common/http";
+import { SignUpComponent } from './components/common/sign-up/sign-up.component';
+import { TapeComponent } from './components/tape/tape.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    SignUpComponent,
+    TapeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgOptimizedImage,
     HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
