@@ -1,0 +1,33 @@
+<div class="tw-flex tw-justify-center tw-items-center">
+  <div class="tw-bg-white tw-border-green-700 tw-border-4 tw-rounded-lg tw-p-14 tw-py-9 tw-w-7/12 tw-shadow-lg">
+    <h2 class="tw-text-2xl tw-font-bold tw-mb-8 tw-text-center">Авторизація</h2>
+    <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div
+        class="tw-mb-6">
+        <label class="tw-text-gray-700 tw-font-bold tw-mb-2">Логін</label>
+        <input
+          type="text"
+          formControlName="login"
+          class="tw-w-full tw-px-4 tw-py-2 tw-border tw-rounded-md tw-bg-gray-100 tw-border-gray-300">
+      </div>
+      <div
+        class="tw-mb-6">
+        <label class="tw-text-gray-700 tw-font-bold tw-mb-2">Пароль</label>
+        <input
+          type="password"
+          formControlName="password"
+          class="tw-w-full tw-px-4 tw-py-2 tw-border tw-rounded-md tw-bg-gray-100 tw-border-gray-300">
+      </div>
+
+      <div class="tw-flex tw-justify-evenly tw-py-4">
+        <button
+          type="button"
+          class="tw-bg-gray-700 tw-text-white tw-font-bold tw-rounded-md hover:tw-bg-gray-600 tw-py-2 tw-px-6"
+          routerLink="/tape">Назад</button>
+        <button
+          type="submit"
+          class="tw-bg-green-700 tw-text-white tw-font-bold tw-py-2 tw-px-6 tw-rounded-md hover:tw-bg-green-600">Авторизуватися</button>
+      </div>
+    </form>
+  </div>
+</div>

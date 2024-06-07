@@ -10,6 +10,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { SignUpComponent } from './components/common/sign-up/sign-up.component';
 import { TapeComponent } from './components/tape/tape.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { SignInComponent } from './components/common/sign-in/sign-in.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     HeaderComponent,
     UserProfileComponent,
     SignUpComponent,
-    TapeComponent
+    TapeComponent,
+    SignInComponent
   ],
   imports: [
     BrowserModule,
