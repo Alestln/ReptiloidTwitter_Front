@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {RegisterAccount} from "../../../types/domain/account/RegisterAccount";
 import {AuthenticationService} from "../../../services/common/authentication.service";
+import {AuthenticationResponse} from "../../../types/common/authentication/AuthenticationResponse";
 
 @Component({
   selector: 'app-sign-up',
@@ -10,11 +11,13 @@ import {AuthenticationService} from "../../../services/common/authentication.ser
 })
 export class SignUpComponent implements OnInit{
   private _entity: RegisterAccount | null;
+  private _authenticationResponse: AuthenticationResponse | null;
   form: FormGroup | null;
 
   constructor(private authenticationService: AuthenticationService) {
     this._entity = null;
     this.form = null;
+    this._authenticationResponse = null;
   }
 
   onSubmit(): void {
@@ -24,6 +27,7 @@ export class SignUpComponent implements OnInit{
         this.authenticationService.register(this._entity).subscribe({
           next: (response) => {
             console.log('Account created successfully:', response);
+            this._authenticationResponse = response;
           },
           error: (error) => {
             console.error('Error creating account:', error);
@@ -37,7 +41,9 @@ export class SignUpComponent implements OnInit{
     this.form = new FormGroup({
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.email])
+      email: new FormControl('', [Validators.required, Validators.email]),
+      firstName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required])
     })
   }
 }

@@ -2,6 +2,22 @@
   <div class="tw-bg-white tw-border-green-700 tw-border-4 tw-rounded-lg tw-p-14 tw-py-9 tw-w-7/12 tw-shadow-lg">
     <h2 class="tw-text-2xl tw-font-bold tw-mb-8 tw-text-center">Реєстрація</h2>
     <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="tw-flex tw-justify-around tw-space-x-4 tw-mb-2">
+        <div>
+          <label class="tw-text-gray-700 tw-font-bold">Ім'я</label>
+          <input
+            type="text"
+            formControlName="firstName"
+            class="tw-w-full tw-px-4 tw-py-2 tw-border tw-rounded-md tw-bg-gray-100 tw-border-gray-300">
+        </div>
+        <div>
+          <label class="tw-text-gray-700 tw-font-bold">Прізвище</label>
+          <input
+            type="text"
+            formControlName="lastName"
+            class="tw-w-full tw-px-4 tw-py-2 tw-border tw-rounded-md tw-bg-gray-100 tw-border-gray-300">
+        </div>
+      </div>
       <div
         class="tw-mb-6">
         <label class="tw-text-gray-700 tw-font-bold tw-mb-2">Логін</label>
