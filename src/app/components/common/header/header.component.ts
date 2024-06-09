@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {AuthenticationService} from "../../../services/common/authentication.service";
+import {TokenService} from "../../../services/common/token.service";
 
 @Component({
   selector: 'app-header',
@@ -11,17 +12,14 @@ export class HeaderComponent {
   public username: string | null;
   public accountId: string | null;
 
-  // TODO: Remove saving username from constructor
-  constructor(private authenticationService: AuthenticationService) {
-    //this.userService.saveUsername('Alestln');
-    this.username = "alestln";
-    this.username = null;
-    this.accountId = "7c0096cb-d315-4b02-978b-ac43b49a99ff";
+  constructor(private authenticationService: AuthenticationService, private tokenService: TokenService) {
+    this.username = tokenService.getUsername();
+    this.accountId = tokenService.getUserId();
   }
 
   logout() {
-    this.authenticationService.logout().subscribe((response) => {
-      console.log("Logout successful")
+    this.authenticationService.logout().subscribe(() => {
+      window.location.reload();
     })
   }
 }

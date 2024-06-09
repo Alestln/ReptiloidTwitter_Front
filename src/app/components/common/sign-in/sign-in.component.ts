@@ -3,6 +3,7 @@ import {AuthenticationService} from "../../../services/common/authentication.ser
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {LoginAccount} from "../../../types/common/authentication/LoginAccount";
 import {Router} from "@angular/router";
+import {TokenService} from "../../../services/common/token.service";
 
 @Component({
   selector: 'app-sign-in',
@@ -17,7 +18,8 @@ export class SignInComponent{
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
-    private route: Router) {
+    private router: Router,
+    private tokenService: TokenService) {
     this._entity = null;
 
     this.form = formBuilder.group({
@@ -35,8 +37,12 @@ export class SignInComponent{
     if (this._entity !== null) {
       this.authenticationService.login(this._entity).subscribe({
         next: () => {
-          // route
-          console.log("Route after login.");
+          const userId = this.tokenService.getUserId();
+          if (userId){
+            this.router.navigate(['user-profile', 'details', userId]);
+          } else {
+            throw new Error('UserId not found.');
+          }
         },
         error: err => {
           this.error = 'Ошибка входа. Проверьте имя пользователя и пароль.';

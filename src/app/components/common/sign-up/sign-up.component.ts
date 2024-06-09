@@ -38,8 +38,7 @@ export class SignUpComponent {
     if (this._entity !== null) {
       this.authenticationService.register(this._entity).subscribe({
         next: () => {
-          // Route
-          console.log("Route after register.");
+          this.router.navigate(['sign-in']);
         },
         error: err => {
           this.error = 'Ошибка регистрации. Попробуйте еще раз.';
