@@ -6,11 +6,12 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/common/header/header.component';
 import {NgOptimizedImage} from "@angular/common";
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import {HttpClientModule} from "@angular/common/http";
 import { SignUpComponent } from './components/common/sign-up/sign-up.component';
 import { TapeComponent } from './components/tape/tape.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { SignInComponent } from './components/common/sign-in/sign-in.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {AuthInterceptor} from "./interceptors/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { SignInComponent } from './components/common/sign-in/sign-in.component';
     UserProfileComponent,
     SignUpComponent,
     TapeComponent,
-    SignInComponent
+    SignInComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,7 +29,13 @@ import { SignInComponent } from './components/common/sign-in/sign-in.component';
     HttpClientModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

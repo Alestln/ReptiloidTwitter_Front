@@ -8,10 +8,12 @@
     class="tw-flex">
       <div
            class="tw-font-bold tw-border tw-border-green-700 tw-rounded-2xl tw-p-1.5 tw-cursor-pointer tw-mr-4"
-           routerLink="user-profile/details/40779046-8eed-46a6-8515-0b0871777165">
+           routerLink="user-profile/details/{{accountId}}">
         <span>{{username}}</span>
       </div>
-      <div class="tw-font-bold tw-border tw-border-green-700 tw-rounded-2xl tw-p-1.5 tw-cursor-pointer">
+      <div
+        class="tw-font-bold tw-border tw-border-green-700 tw-rounded-2xl tw-p-1.5 tw-cursor-pointer"
+        (click)="logout()">
         <span>Logout</span>
       </div>
     </div>

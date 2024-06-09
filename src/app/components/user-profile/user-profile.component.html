@@ -1,11 +1,12 @@
-<div class="tw-bg-white tw-border-green-700 tw-border-solid tw-border-4 tw-rounded-lg tw-p-4 tw-pb-6">
+<div
+  *ngIf="info"
+  class="tw-bg-white tw-border-green-700 tw-border-solid tw-border-4 tw-rounded-lg tw-p-4 tw-pb-6">
   <div
-    *ngIf="info"
     class="tw-flex tw-place-items-center tw-justify-evenly">
     <div
-      class="tw-w-72 tw-h-72 tw-rounded-full tw-bg-cover tw-bg-center tw-mr-6"
-      [ngStyle]="{'background-image': 'url(data:image;base64,' + info.photoFile + ')'}"
-    ></div>
+      class="tw-w-72 tw-h-72 tw-bg-cover tw-bg-center tw-mr-6"
+      [ngStyle]="{'background-image': 'url(' + (info.photoFile ? 'data:image;base64,' + info.photoFile + ')' : '/assets/default-avatar.png')}">
+    </div>
     <div class="tw-inline-flex-1">
       <div *ngIf="(info.firstName && info.lastName) || info.middleName" class="tw-mb-4">
         <div class="tw-flex tw-flex-wrap">
