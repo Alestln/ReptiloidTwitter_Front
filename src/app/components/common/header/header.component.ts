@@ -1,25 +1,24 @@
 import {Component} from '@angular/core';
 import {AuthenticationService} from "../../../services/common/authentication.service";
-import {TokenService} from "../../../services/common/token.service";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent {
+export class HeaderComponent{
 
-  public username: string | null;
-  public accountId: string | null;
+  isLoggedIn: boolean = false;
+  username: string = "alex";
+  accountId: string = "sdfjsdfsgjf";
 
-  constructor(private authenticationService: AuthenticationService, private tokenService: TokenService) {
-    this.username = tokenService.getUsername();
-    this.accountId = tokenService.getUserId();
+  constructor(private authenticationService: AuthenticationService) {
+
   }
 
   logout() {
     this.authenticationService.logout().subscribe(() => {
-      window.location.reload();
+      console.log("Logged out");
     })
   }
 }

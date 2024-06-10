@@ -6,7 +6,6 @@ import {AuthenticationResponse} from "../../types/common/authentication/Authenti
 import api_config from "../../../configs/api_config.json";
 import {LoginAccount} from "../../types/common/authentication/LoginAccount";
 import {TokenService} from "./token.service";
-import {Token} from "../../types/common/authentication/Token";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +13,8 @@ import {Token} from "../../types/common/authentication/Token";
 export class AuthenticationService {
 
   private _controllerPath: string = "Authentication/";
+  private accessTokenTimeoutId: any;
+  private refreshTokenTimeoutId: any;
 
   constructor(private http: HttpClient, private tokenService: TokenService)
   {
@@ -38,29 +39,39 @@ export class AuthenticationService {
       );
   }
 
-  logout()  {
-    return this.http.get<HttpResponse<any>>(`${api_config.baseHttpsUrl}${this._controllerPath}Logout`)
+  logoutFromAllDevices()  {
+    return this.http.get<HttpResponse<any>>(`${api_config.baseHttpsUrl}${this._controllerPath}LogoutFromAllDevices`)
       .pipe(
         tap(() => {
-          this.tokenService.clearTokens()
+          this.tokenService.clearTokens();
         })
       );
   }
 
-  deleteRefreshToken(refreshToken: string)  {
-    this.http.post(`${api_config.baseHttpsUrl}${this._controllerPath}DeleteRefreshToken`, {refreshToken})
-      .subscribe(() => this.tokenService.clearTokens());
+  logout()  {
+    const refreshToken = this.tokenService.getRefreshToken();
+    return this.http.post(`${api_config.baseHttpsUrl}${this._controllerPath}Logout`, {refreshToken})
+      .pipe(
+        tap(
+          () => {
+            this.tokenService.clearTokens()
+            clearTimeout(this.accessTokenTimeoutId);
+            clearTimeout(this.refreshTokenTimeoutId);
+          }
+        )
+      );
   }
 
   private refresh() {
     const refreshToken = this.tokenService.getRefreshToken();
 
     if (refreshToken) {
-      return this.http.post<Token>(`${api_config.baseHttpsUrl}${this._controllerPath}Refresh`, {refreshToken})
+      return this.http.post<AuthenticationResponse>(`${api_config.baseHttpsUrl}${this._controllerPath}Refresh`, {refreshToken})
         .subscribe({
           next: (response) => {
-            this.tokenService.updateAccessToken(response);
+            this.tokenService.setTokens(response);
             this.scheduleAccessToken();
+            this.scheduleRefreshToken();
           },
           error: (err) => {
             this.tokenService.clearTokens();
@@ -79,7 +90,7 @@ export class AuthenticationService {
       const timeUntilRefresh = accessExpiry - currentTime;
 
       if (timeUntilRefresh > 0) {
-        setTimeout(() => {
+        this.accessTokenTimeoutId = setTimeout(() => {
           this.refresh();
         }, timeUntilRefresh * 1000);
       } else {
@@ -97,15 +108,14 @@ export class AuthenticationService {
       const refreshToken = this.tokenService.getRefreshToken();
 
       if (timeUntilRefresh > 0) {
-        setTimeout(() => {
+        this.refreshTokenTimeoutId = setTimeout(() => {
           if (refreshToken){
-            console.log("Start delete")
-            this.deleteRefreshToken(refreshToken);
+            this.logout().subscribe();
           }
         }, timeUntilRefresh * 1000);
       } else {
         if (refreshToken){
-          this.deleteRefreshToken(refreshToken);
+          this.logout().subscribe();
         }
       }
     }

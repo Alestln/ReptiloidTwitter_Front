@@ -4,7 +4,7 @@
     <span class="tw-cursor-pointer">ReptilTwit</span>
   </div>
   <div class="tw-mr-5">
-    <div *ngIf="username"
+    <div *ngIf="isLoggedIn"
     class="tw-flex">
       <div
            class="tw-font-bold tw-border tw-border-green-700 tw-rounded-2xl tw-p-1.5 tw-cursor-pointer tw-mr-4"
@@ -17,7 +17,7 @@
         <span>Logout</span>
       </div>
     </div>
-    <ng-template [ngIf]="!username">
+    <ng-template [ngIf]="!isLoggedIn">
       <div class="tw-flex">
         <div
           class="tw-font-bold tw-border tw-border-green-700 tw-rounded-2xl tw-p-1.5 tw-cursor-pointer tw-mr-4"

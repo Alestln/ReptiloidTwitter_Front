@@ -52,8 +52,6 @@ export class TokenService {
     localStorage.removeItem(this.refreshTokenKey);
     localStorage.removeItem(this.accessTokenExpiryKey);
     localStorage.removeItem(this.refreshTokenExpiryKey);
-
-    window.location.reload();
   }
 
   getUsername(): string | null {
