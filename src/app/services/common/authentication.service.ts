@@ -18,10 +18,10 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient, private tokenService: TokenService)
   {
-    if (tokenService.getAccessToken() && tokenService.getRefreshToken()){
+    /*if (tokenService.getAccessToken() && tokenService.getRefreshToken()){
       this.scheduleAccessToken();
       this.scheduleRefreshToken();
-    }
+    }*/
   }
 
   register(account: RegisterAccount): Observable<AuthenticationResponse>{
@@ -60,6 +60,14 @@ export class AuthenticationService {
           }
         )
       );
+  }
+
+  isUserLoggedIn(): boolean {
+    if (this.tokenService.getAccessToken() && this.tokenService.getRefreshToken()){
+      return true;
+    }
+
+    return false;
   }
 
   private refresh() {
