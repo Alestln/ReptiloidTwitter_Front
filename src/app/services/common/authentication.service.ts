@@ -49,6 +49,8 @@ export class AuthenticationService {
       .pipe(
         tap(() => {
           this.tokenService.clearTokens();
+
+          this._isLoggedIn.next(false);
         })
       );
   }
@@ -70,11 +72,7 @@ export class AuthenticationService {
   }
 
   isUserLoggedIn(): boolean {
-    if (this.tokenService.getAccessToken() && this.tokenService.getRefreshToken()){
-      return true;
-    }
-
-    return false;
+    return !!(this.tokenService.getAccessToken() && this.tokenService.getRefreshToken());
   }
 
   private refresh() {
