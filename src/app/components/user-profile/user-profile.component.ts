@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserProfileService} from "../../services/api/user-profile.service";
 import {ActivatedRoute} from "@angular/router";
 import {UserProfileInfo} from "../../types/domain/user-profile/UserProfileInfo";
+import {UserProfileTab} from "../../types/enums/user-profile/UserProfileTab";
 
 @Component({
   selector: 'app-user-profile',
@@ -9,6 +10,9 @@ import {UserProfileInfo} from "../../types/domain/user-profile/UserProfileInfo";
   styleUrl: './user-profile.component.css'
 })
 export class UserProfileComponent implements OnInit{
+
+  currentTab: UserProfileTab = UserProfileTab.Post;
+  tab = UserProfileTab;
 
   info: UserProfileInfo | null = null;
   errorMessage: string | null = null;

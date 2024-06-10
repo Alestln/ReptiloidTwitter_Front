@@ -12,6 +12,9 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { SignInComponent } from './components/common/sign-in/sign-in.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptor} from "./interceptors/auth.interceptor";
+import { UserPostListComponent } from './components/post/user-post-list/user-post-list.component';
+import { UserPhotoListComponent } from './components/photo/user-photo-list/user-photo-list.component';
+import { FriendListComponent } from './components/friends/friend-list/friend-list.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +24,9 @@ import {AuthInterceptor} from "./interceptors/auth.interceptor";
     SignUpComponent,
     TapeComponent,
     SignInComponent,
+    UserPostListComponent,
+    UserPhotoListComponent,
+    FriendListComponent,
   ],
   imports: [
     BrowserModule,
