@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpResponse} from "@angular/common/http";
 import {RegisterAccount} from "../../types/domain/account/RegisterAccount";
-import {Observable, tap} from "rxjs";
+import {BehaviorSubject, Observable, tap} from "rxjs";
 import {AuthenticationResponse} from "../../types/common/authentication/AuthenticationResponse";
 import api_config from "../../../configs/api_config.json";
 import {LoginAccount} from "../../types/common/authentication/LoginAccount";
@@ -11,6 +11,9 @@ import {TokenService} from "./token.service";
   providedIn: 'root'
 })
 export class AuthenticationService {
+
+  private _isLoggedIn = new BehaviorSubject<boolean>(false);
+  isLoggedIn$ = this._isLoggedIn.asObservable();
 
   private _controllerPath: string = "Authentication/";
   private accessTokenTimeoutId: any;
@@ -35,6 +38,8 @@ export class AuthenticationService {
           this.tokenService.setTokens(response);
           this.scheduleAccessToken();
           this.scheduleRefreshToken();
+
+          this._isLoggedIn.next(true);
         })
       );
   }
@@ -57,6 +62,8 @@ export class AuthenticationService {
             this.tokenService.clearTokens()
             clearTimeout(this.accessTokenTimeoutId);
             clearTimeout(this.refreshTokenTimeoutId);
+
+            this._isLoggedIn.next(false);
           }
         )
       );

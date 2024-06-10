@@ -18,6 +18,15 @@ export class HeaderComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.updateLoggedInStatus();
+  }
+
+  updateLoggedInStatus(): void {
+    this.authenticationService.isLoggedIn$.subscribe((value: boolean) => {
+      this.isLoggedIn = value;
+      return;
+    });
+
     this.isLoggedIn = this.authenticationService.isUserLoggedIn();
   }
 
