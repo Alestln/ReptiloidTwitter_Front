@@ -21,10 +21,10 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient, private tokenService: TokenService)
   {
-    /*if (tokenService.getAccessToken() && tokenService.getRefreshToken()){
+    if (tokenService.getAccessToken() && tokenService.getRefreshToken()){
       this.scheduleAccessToken();
       this.scheduleRefreshToken();
-    }*/
+    }
   }
 
   register(account: RegisterAccount): Observable<AuthenticationResponse>{
@@ -36,6 +36,7 @@ export class AuthenticationService {
       .pipe(
         tap((response: AuthenticationResponse) => {
           this.tokenService.setTokens(response);
+
           this.scheduleAccessToken();
           this.scheduleRefreshToken();
 
@@ -82,7 +83,11 @@ export class AuthenticationService {
       return this.http.post<AuthenticationResponse>(`${api_config.baseHttpsUrl}${this._controllerPath}Refresh`, {refreshToken})
         .subscribe({
           next: (response) => {
+            clearTimeout(this.accessTokenTimeoutId);
+            clearTimeout(this.refreshTokenTimeoutId);
+
             this.tokenService.setTokens(response);
+
             this.scheduleAccessToken();
             this.scheduleRefreshToken();
           },
